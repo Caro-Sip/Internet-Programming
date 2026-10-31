@@ -59,6 +59,36 @@
       "capacity": 80,
       "booked": 79,
       "description": "Alumni talk about their first jobs and internships."
+    },
+    {
+      "title": "sdfgasj",
+      "category": "talk",
+      "startsAt": "2026-11-06T18:49:00.000Z",
+      "location": "asdf",
+      "capacity": 30,
+      "description": "",
+      "booked": 0,
+      "id": 7
+    },
+    {
+      "title": "sdfgasj",
+      "category": "talk",
+      "startsAt": "2026-11-06T18:49:00.000Z",
+      "location": "asdf",
+      "capacity": 30,
+      "description": "",
+      "booked": 0,
+      "id": 8
+    },
+    {
+      "title": "sdfgasj",
+      "category": "talk",
+      "startsAt": "2026-11-06T18:49:00.000Z",
+      "location": "asdf",
+      "capacity": 30,
+      "description": "",
+      "booked": 0,
+      "id": 9
     }
   ],
   "bookings": []
