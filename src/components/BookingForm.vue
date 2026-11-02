@@ -2,41 +2,60 @@
 import { computed, reactive, ref } from "vue";
 import type { BookingInput } from "../types";
 import { hasErrors, validateBooking } from "../validation";
+import {seatsLeft} from "../format.ts";
 
 const props = defineProps<{ seatsLeft: number; pending?: boolean }>();
 const emit = defineEmits<{ submit: [input: BookingInput] }>();
 
 // EventForm.vue is a finished form: use it as your pattern.
 // TODO C2: a reactive `form` object { name: "", email: "", seats: 1 }
+const form = reactive({ name: "", email:"", seats: 1});
 // TODO C3: `submitted` (ref, false) and `errors` (computed with validateBooking)
+const submitted = ref(false)
+const errors = computed(() => validateBooking(form,props.seatsLeft))
 // TODO C4: onSubmit(): set submitted; stop if there are errors;
 //          otherwise emit "submit" with the trimmed name and email, and seats
 function onSubmit() {
-  void [computed, reactive, ref, hasErrors, validateBooking, props, emit];
+  submitted.value = true;
+
+  if(Object.keys(errors.value).length > 0){
+    return;
+  }
+
+  emit('submit', {
+    name: form.name.trim(),
+    email: form.email.trim(),
+    seats: form.seats
+  });
 }
 </script>
 
 <template>
   <!-- TODO C5: v-model each input (seats with v-model.number);
        show each error in a <p class="error"> under its field, only after the first submit;
-       disable the button and show "Booking..." while pending -->
+       disable the button and show "Booking..." while 'ending -->
   <form novalidate @submit.prevent="onSubmit">
     <label>
       Name
-      <input name="name" autocomplete="name" />
+      <input name="name" v-model="form.name" type="text" autocomplete="name" />
+      <span class="error" v-if="submitted && errors.name">{{ errors.name }}</span>
     </label>
 
     <label>
       Email
-      <input name="email" type="email" autocomplete="email" />
+      <input name="email" v-model="form.email" type="email" autocomplete="email" />
+      <span class="error" v-if="submitted && errors.email">{{ errors.email }}</span>
     </label>
 
     <label>
       Seats
-      <input name="seats" type="number" min="1" max="4" />
+      <input name="seats" v-model.number="form.seats" type="number" min="1" max="4" />
+      <span class="error" v-if="submitted && errors.email">{{errors.seats}}</span>
     </label>
 
-    <button type="submit">Book</button>
+    <button type="submit" :disabled="pending">
+      {{pending ? 'Booking...' : 'Book'}}
+    </button>
   </form>
 </template>
 
