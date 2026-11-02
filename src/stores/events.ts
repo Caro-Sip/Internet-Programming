@@ -27,8 +27,7 @@ export const useEventsStore = defineStore("events", () => {
     error.value = null
 
     try {
-      const data = await eventsApi.list();
-      events.value = data;
+      events.value = await eventsApi.list();
       status.value = "success";
     } catch(e: any) {
       error.value = e.message;
