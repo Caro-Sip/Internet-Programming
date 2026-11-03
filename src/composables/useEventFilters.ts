@@ -7,6 +7,14 @@ import type { CampusEvent, Category } from "../types";
 export function useEventFilters(events: Ref<CampusEvent[]>) {
   const search = ref("");
   const category = ref<Category | "all">("all");
-  const visible = computed(() => events.value);
+  const visible = computed(() => {
+    const query = search.value.trim().toLowerCase();
+
+    return events.value.filter(e  => {
+      const matchedCategory = category.value == "all" || e.category == category.value;
+      const matchedSearch = e.title.toLowerCase().includes(query) || e.location.toLowerCase().includes(query);
+      return matchedCategory && matchedSearch;
+    })
+  });
   return { search, category, visible };
 }

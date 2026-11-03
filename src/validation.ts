@@ -5,7 +5,7 @@ export const MAX_SEATS_PER_BOOKING = 4;
 
 export function validateBooking(form: BookingInput, seatsLeft: number): FormErrors<BookingInput> {
   const errors: FormErrors<BookingInput> = {};
-  if (form.name.trim().length < 2) errors.name = "Enter your name (at  least 2 characters.";
+  if (form.name.trim().length < 2) errors.name = "Enter your name (at least 2 characters).";
   if (!EMAIL.test(form.email)) errors.email = "Enter a valid email address.";
 
   const maxSeats = Math.min(MAX_SEATS_PER_BOOKING, seatsLeft);
