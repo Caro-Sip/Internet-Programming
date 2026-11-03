@@ -50,7 +50,7 @@ function onSubmit() {
     <label>
       Seats
       <input name="seats" v-model.number="form.seats" type="number" min="1" max="4" />
-      <span class="error" v-if="submitted && errors.email">{{errors.seats}}</span>
+      <span class="error" v-if="submitted && errors.seats"email>{{errors.seats}}</span>
     </label>
 
     <button type="submit" :disabled="pending">
